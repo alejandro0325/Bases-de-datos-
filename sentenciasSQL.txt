@@ -1,0 +1,81 @@
+Sentencial SQL crear base de datos y tablas:
+
+CREATE TABLE MateriaPrima (
+    idMateriaPrima INT NOT NULL PRIMARY KEY,
+    nombreMateriaPrima VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Categoria (
+    idCategoria INT NOT NULL PRIMARY KEY,
+    nombreCategoria VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Tipo (
+    idTipo INT NOT NULL PRIMARY KEY,
+    nombreTipo VARCHAR(50) NOT NULL,
+    idCategoria INT NOT NULL,
+    FOREIGN KEY (idCategoria) REFERENCES Categoria(idCategoria)
+);
+
+CREATE TABLE Cerveza (
+    idCerveza INT NOT NULL PRIMARY KEY,
+    nombreCerveza VARCHAR(50) NOT NULL,
+    idTipo INT NOT NULL,
+    FOREIGN KEY (idTipo) REFERENCES Tipo(idTipo)
+);
+
+CREATE TABLE CervezaMateriaPrima (
+    idCerveza INT NOT NULL,
+    idMateriaPrima INT NOT NULL,
+    PRIMARY KEY (idCerveza, idMateriaPrima),
+    FOREIGN KEY (idCerveza) REFERENCES Cerveza(idCerveza),
+    FOREIGN KEY (idMateriaPrima) REFERENCES MateriaPrima(idMateriaPrima)
+);
+
+INSERT INTO MateriaPrima (idMateriaPrima, nombreMateriaPrima)
+VALUES
+    (1, 'Agua'),
+    (2, 'Malta'),
+    (3, 'Lúpulo'),
+    (4, 'Levadura');
+
+INSERT INTO Categoria (idCategoria, nombreCategoria)
+VALUES
+    (1, 'Lager'),
+    (2, 'Ale');
+
+INSERT INTO Tipo (idTipo, nombreTipo, idCategoria)
+VALUES
+    (1, 'Dark', 1),
+    (2, 'Pale', 1),
+    (3, 'Bocks', 1),
+    (4, 'Stouts', 2),
+    (5, 'Porters', 2),
+    (6, 'Belgians', 2),
+    (7, 'Sours', 2),
+    (8, 'Pale', 2);
+
+INSERT INTO Cerveza (idCerveza, nombreCerveza, idTipo)
+VALUES
+    (1, 'Heineken', 2),
+    (2, 'Stella Artois', 2),
+    (3, 'Guinness', 4),
+    (4, 'Chimay', 6);
+
+INSERT INTO CervezaMateriaPrima (idCerveza, idMateriaPrima)
+VALUES
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (1, 4),
+    (2, 1),
+    (2, 2),
+    (2, 3),
+    (3, 1),
+    (3, 2),
+    (3, 3),
+    (3, 4),
+    (4, 1),
+    (4, 2),
+    (4, 3),
+    (4, 4);
